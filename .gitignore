@@ -1,0 +1,22 @@
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# Editor related #
+######################
+.*.swp
+Session.vim
+Sessionx.vim
+
+# Project Specific files #
+##########################
+/AndroidGridViewCompatLib/gen
+/AndroidGridViewCompatLib/assets/gen
+/AndroidGridViewCompatLib/bin
+/AndroidGridViewCompatLib/local.properties
+/AndroidGridViewCompatLib/tests/gen
+/AndroidGridViewCompatLib/tests/bin
+/AndroidGridViewCompatLib/tests/local.properties
