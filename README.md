@@ -28,3 +28,7 @@ Benefits
 * Only one class file, so make it easy to integrate with projects.
 * It uses reflection so you don't have to compile with higher android library. This is helpful, if you don't get it why, think deeper...:)
 
+Caveats
+-------
+
+* As of now, the only way you can *setChoiceMode* is from the code. XML attribute is NOT supported.
