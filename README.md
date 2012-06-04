@@ -33,3 +33,4 @@ Caveats
 -------
 
 * As of now, the only way you can *setChoiceMode* is from the code. XML attribute is NOT supported.
+* Does NOT support *CHOICE_MODE_MULTIPLE_MODAL* for *setChoiceMode*. Which should not be a problem as such.
