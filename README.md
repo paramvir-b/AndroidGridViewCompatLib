@@ -21,6 +21,63 @@ Usage inside project
 
 The only thing you have to take care is that when calling the compatible methods use the one which are suffixed by 'C' and not the default ones. Also you can look in the comments.
 
+Example
+-------
+
+_layout.xml file_
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <Button
+        android:id="@+id/doneButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:enabled="false"
+        android:text="Done" />
+
+    <com.rokoder.android.lib.support.v4.widget.GridViewCompat
+        android:id="@+id/gridView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@id/doneButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:choiceMode="multipleChoice"
+        android:columnWidth="120dp"
+        android:gravity="center"
+        android:horizontalSpacing="10dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="10dp" >
+    </com.rokoder.android.lib.support.v4.widget.GridViewCompat>
+
+</RelativeLayout>
+```
+
+_YourActivity.java_
+```java
+@Override
+protected void onCreate(Bundle saveInstance) {
+    ...
+    ...
+    gridView = (GridViewCompat) findViewById(R.id.gridView);
+
+    // NOTE: We are using setChoiceModeC with suffix 'C'
+    gridView.setChoiceModeC(ListView.CHOICE_MODE_MULTIPLE);
+    gridView.setAdapter(imageAdapter);
+    ...
+    ...
+}
+```
+
 Benefits
 --------
 
