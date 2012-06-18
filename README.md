@@ -85,6 +85,7 @@ Benefits
 * Only one class file, so make it easy to integrate with projects.
 * It uses reflection so you don't have to compile with higher android library. This is helpful, if you don't get it why, think deeper...:)
 * If the apis are available it will shift to native ones. So compatibility mode is only when needed.
+* It does not require any compatibility jars also.
 
 Caveats
 -------
