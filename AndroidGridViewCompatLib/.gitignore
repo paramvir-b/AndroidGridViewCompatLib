@@ -1,0 +1,9 @@
+# Project Specific files #
+##########################
+/gen
+/assets/gen
+/bin
+/local.properties
+/tests/gen
+/tests/bin
+/tests/local.properties
