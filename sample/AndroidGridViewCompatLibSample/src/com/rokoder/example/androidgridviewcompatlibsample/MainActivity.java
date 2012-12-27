@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // TODO Auto-generated method stub
-        if (requestCode == 0) {
+        if (resultCode == Activity.RESULT_OK) {
             String result = data.getExtras().getString("result");
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }

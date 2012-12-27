@@ -61,7 +61,7 @@ public class GridViewCompatActivity extends Activity {
 
                 Intent intent = new Intent();
                 intent.putExtra("result", selectedPos);
-                setResult(0, intent);
+                setResult(Activity.RESULT_OK, intent);
                 finish();
             }
         });
