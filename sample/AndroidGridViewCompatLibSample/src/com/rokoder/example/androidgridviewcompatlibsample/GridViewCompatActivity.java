@@ -1,9 +1,11 @@
 
 package com.rokoder.example.androidgridviewcompatlibsample;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -14,7 +16,6 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.rokoder.android.lib.support.v4.widget.GridViewCompat;
 
@@ -22,6 +23,7 @@ public class GridViewCompatActivity extends Activity {
 
     GridViewCompat gridView;
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,8 +31,8 @@ public class GridViewCompatActivity extends Activity {
 
         gridView = (GridViewCompat) findViewById(R.id.gridView1);
 
-        // NOTE: We are using setChoiceModeC with suffix 'C'
-        gridView.setChoiceModeC(ListView.CHOICE_MODE_MULTIPLE);
+        // NOTE: We are using setChoiceMode, as I said, its a drop-in replacement
+        gridView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
         gridView.setAdapter(new ImageAdapter(getApplicationContext()));
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -50,7 +52,7 @@ public class GridViewCompatActivity extends Activity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 SparseBooleanArray checkArray;
-                checkArray = gridView.getCheckedItemPositionsC();
+                checkArray = gridView.getCheckedItemPositions();
 
                 String selectedPos = "Selected positions: ";
                 int count = checkArray.size();
@@ -87,6 +89,7 @@ public class GridViewCompatActivity extends Activity {
         }
 
         // create a new grid view item for each item referenced by the Adapter
+        @TargetApi(Build.VERSION_CODES.HONEYCOMB)
         public View getView(int position, View convertView, ViewGroup parent) {
             ImageView imageView;
             CheckBox checkBox;
@@ -98,11 +101,9 @@ public class GridViewCompatActivity extends Activity {
             checkBox = (CheckBox) convertView.findViewById(R.id.checkBox1);
 
             GridViewCompat gvc = (GridViewCompat) parent;
-            // Use grid view compat apis ending with 'C' where ever you find two
-            // similar apis
-            if (gvc.getChoiceModeC() == ListView.CHOICE_MODE_MULTIPLE) {
+            if (gvc.getChoiceMode() == ListView.CHOICE_MODE_MULTIPLE) {
                 SparseBooleanArray checkArray;
-                checkArray = gvc.getCheckedItemPositionsC();
+                checkArray = gvc.getCheckedItemPositions();
 
                 checkBox.setChecked(false);
                 if (checkArray != null) {

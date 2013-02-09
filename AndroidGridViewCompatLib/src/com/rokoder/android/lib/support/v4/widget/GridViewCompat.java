@@ -21,7 +21,9 @@
 
 package com.rokoder.android.lib.support.v4.widget;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -91,17 +93,23 @@ public class GridViewCompat extends GridView {
             gridView_getCheckedItemIds =
                     GridView.class.getMethod("getCheckedItemIds", (Class<?>[]) null);
             gridView_isItemChecked =
-                    GridView.class.getMethod("isItemChecked", new Class[] { int.class });
+                    GridView.class.getMethod("isItemChecked", new Class[] {
+                            int.class
+                    });
             gridView_getCheckedItemPosition =
                     GridView.class.getMethod("getCheckedItemPosition", (Class<?>[]) null);
             gridView_getCheckedItemPositions =
                     GridView.class.getMethod("getCheckedItemPositions", (Class<?>[]) null);
             gridView_clearChoices = GridView.class.getMethod("clearChoices", (Class<?>[]) null);
             gridView_setItemChecked =
-                    GridView.class.getMethod("setItemChecked", new Class[] { int.class,
-                            boolean.class });
+                    GridView.class.getMethod("setItemChecked", new Class[] {
+                            int.class,
+                            boolean.class
+                    });
             gridView_setChoiceMode =
-                    GridView.class.getMethod("setChoiceMode", new Class[] { int.class });
+                    GridView.class.getMethod("setChoiceMode", new Class[] {
+                            int.class
+                    });
             gridView_getCheckedItemCount =
                     GridView.class.getMethod("getCheckedItemCount", (Class<?>[]) null);
 
@@ -168,10 +176,8 @@ public class GridViewCompat extends GridView {
         /**
          * Sets all supplied keys to the given unique value.
          * 
-         * @param keys
-         *            Keys to set
-         * @param uniqueValue
-         *            Value to set all supplied keys to
+         * @param keys Keys to set
+         * @param uniqueValue Value to set all supplied keys to
          */
         public void setValues(long[] keys, E uniqueValue) {
             int length = keys.length;
@@ -281,7 +287,8 @@ public class GridViewCompat extends GridView {
                     long[] nkeys = new long[n];
                     Object[] nvalues = new Object[n];
 
-                    // Log.e("SparseArray", "grow " + mKeys.length + " to " + n);
+                    // Log.e("SparseArray", "grow " + mKeys.length + " to " +
+                    // n);
                     System.arraycopy(mKeys, 0, nkeys, 0, mKeys.length);
                     System.arraycopy(mValues, 0, nvalues, 0, mValues.length);
 
@@ -464,7 +471,8 @@ public class GridViewCompat extends GridView {
         private int mSize;
     }
 
-    // XXX these should be changed to reflect the actual memory allocator we use.
+    // XXX these should be changed to reflect the actual memory allocator we
+    // use.
     // it looks like right now objects want to be powers of 2 minus 8
     // and the array size eats another 4 bytes
 
@@ -523,12 +531,9 @@ public class GridViewCompat extends GridView {
         /**
          * Checks if the beginnings of two byte arrays are equal.
          * 
-         * @param array1
-         *            the first byte array
-         * @param array2
-         *            the second byte array
-         * @param length
-         *            the number of bytes to check
+         * @param array1 the first byte array
+         * @param array2 the second byte array
+         * @param length the number of bytes to check
          * @return true if they're equal, false otherwise
          */
         public static boolean equals(byte[] array1, byte[] array2, int length) {
@@ -563,7 +568,8 @@ public class GridViewCompat extends GridView {
                 cache = Array.newInstance(kind, 0);
                 sCache[bucket] = cache;
 
-                // Log.e("cache", "new empty " + kind.getName() + " at " + bucket);
+                // Log.e("cache", "new empty " + kind.getName() + " at " +
+                // bucket);
             }
 
             return (T[]) cache;
@@ -572,10 +578,8 @@ public class GridViewCompat extends GridView {
         /**
          * Checks that value is present as at least one of the elements of the array.
          * 
-         * @param array
-         *            the array to check in
-         * @param value
-         *            the value to check for
+         * @param array the array to check in
+         * @param value the value to check for
          * @return true if the value is present in the array
          */
         public static <T> boolean contains(T[] array, T value) {
@@ -693,26 +697,15 @@ public class GridViewCompat extends GridView {
      * @see #setChoiceMode(int)
      * @return The current choice mode
      */
-    public int getChoiceModeC() {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public int getChoiceMode() {
         if (!inCompatibleMode && gridView_getChoiceMode != null)
-            try {
-                return (Integer) gridView_getChoiceMode.invoke(this, (Object[]) null);
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            return super.getChoiceMode();
         return mChoiceModeC;
     }
 
     /*
      * (non-Javadoc)
-     * 
      * @see android.widget.GridView#setAdapter(android.widget.ListAdapter)
      */
     @Override
@@ -746,20 +739,10 @@ public class GridViewCompat extends GridView {
      * 
      * @return
      */
-    public long[] getCheckedItemIdsC() {
-        if (!inCompatibleMode) {
-            try {
-                return (long[]) gridView_getCheckedItemIds.invoke(this, (Object[]) null);
-            } catch (IllegalArgumentException e) {
-                // TODO
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO
-                e.printStackTrace();
-            }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public long[] getCheckedItemIds() {
+        if (!inCompatibleMode && gridView_getCheckedItemIds != null) {
+            return super.getCheckedItemIds();
         }
 
         // Code copied from Android source
@@ -785,20 +768,10 @@ public class GridViewCompat extends GridView {
      * @param position
      * @return
      */
-    public boolean isItemCheckedC(int position) {
-        if (!inCompatibleMode) {
-            try {
-                return (Boolean) gridView_isItemChecked.invoke(this, Integer.valueOf(position));
-            } catch (IllegalArgumentException e) {
-                // TODO
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO
-                e.printStackTrace();
-            }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public boolean isItemChecked(int position) {
+        if (!inCompatibleMode && gridView_isItemChecked != null) {
+            return super.isItemChecked(position);
         }
 
         // Code copied from Android source
@@ -814,20 +787,10 @@ public class GridViewCompat extends GridView {
      * 
      * @return
      */
-    public int getCheckedItemPositionC() {
-        if (!inCompatibleMode) {
-            try {
-                return (Integer) gridView_getCheckedItemPosition.invoke(this, (Object[]) null);
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public int getCheckedItemPosition() {
+        if (!inCompatibleMode && gridView_getCheckedItemPosition != null) {
+            return super.getCheckedItemPosition();
         }
 
         // Code copied from Android source
@@ -844,22 +807,10 @@ public class GridViewCompat extends GridView {
      * 
      * @return
      */
-    public SparseBooleanArray getCheckedItemPositionsC() {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public SparseBooleanArray getCheckedItemPositions() {
         if (!inCompatibleMode) {
-            try {
-                return (SparseBooleanArray) gridView_getCheckedItemPositions.invoke(
-                        this,
-                        (Object[]) null);
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            return super.getCheckedItemPositions();
         }
 
         // Code copied from Android source
@@ -872,20 +823,10 @@ public class GridViewCompat extends GridView {
     /**
      * WARN Do not call the default api
      */
-    public void clearChoicesC() {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void clearChoices() {
         if (!inCompatibleMode) {
-            try {
-                gridView_clearChoices.invoke(this, (Object[]) null);
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            super.clearChoices();
             return;
         }
 
@@ -979,23 +920,10 @@ public class GridViewCompat extends GridView {
      * }
      * </pre>
      */
-    public void setItemCheckedC(int position, boolean value) {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void setItemChecked(int position, boolean value) {
         if (!inCompatibleMode) {
-            try {
-                gridView_setItemChecked.invoke(
-                        this,
-                        Integer.valueOf(position),
-                        Boolean.valueOf(value));
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            super.setItemChecked(position, value);
             return;
         }
 
@@ -1027,7 +955,7 @@ public class GridViewCompat extends GridView {
             // Clear all values if we're checking something, or unchecking the
             // currently
             // selected item
-            if (value || isItemCheckedC(position)) {
+            if (value || isItemChecked(position)) {
                 mCheckStatesC.clear();
                 if (updateIds) {
                     mCheckedIdStatesC.clear();
@@ -1177,20 +1105,10 @@ public class GridViewCompat extends GridView {
      * 
      * @param choiceMode
      */
-    public void setChoiceModeC(int choiceMode) {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public void setChoiceMode(int choiceMode) {
         if (!inCompatibleMode) {
-            try {
-                gridView_setChoiceMode.invoke(this, Integer.valueOf(choiceMode));
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            super.setChoiceMode(choiceMode);
             return;
         }
 
@@ -1275,20 +1193,10 @@ public class GridViewCompat extends GridView {
      * 
      * @return
      */
-    public int getCheckedItemCountC() {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public int getCheckedItemCount() {
         if (!inCompatibleMode) {
-            try {
-                return (Integer) gridView_getCheckedItemCount.invoke(this, (Object[]) null);
-            } catch (IllegalArgumentException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            return super.getCheckedItemCount();
         }
 
         return mCheckedItemCountC;

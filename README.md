@@ -1,7 +1,7 @@
 AndroidGridViewCompatLib
 ========================
 
-Multi-select grid view for android API level 4 and above
+Multi-select grid view for android API level 7 and above. (NOTE: if you are running against API level 4 try using version 1.0.0 tag)
 
 Motivation
 ----------
@@ -19,10 +19,12 @@ Usage for project
 Usage inside project
 --------------------
 
-The only thing you have to take care is that when calling the compatible methods use the one which are suffixed by 'C' and not the default ones. Also you can look in the comments.
+Since ADT 21 complains if you are compiling against higher API level and using apis available only in API level above your minSdkVersion, we can make GridViewCompat a drop-in replacement for GridView. So no more 'C' suffixed apis. Just change the import packages and you are good. But to support this your project needs to be compiled against API 11 or higher. Also need ADT 21 and above version.
 
 Example
 -------
+
+There is a sample project also which can be helpful.
 
 _layout.xml file_
 
@@ -70,8 +72,8 @@ protected void onCreate(Bundle saveInstance) {
     ...
     gridView = (GridViewCompat) findViewById(R.id.gridView);
 
-    // NOTE: We are using setChoiceModeC with suffix 'C'
-    gridView.setChoiceModeC(ListView.CHOICE_MODE_MULTIPLE);
+    // NOTE: We are using setChoiceMode, as I said, its a drop-in replacement
+    gridView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
     gridView.setAdapter(imageAdapter);
     ...
     ...
@@ -83,7 +85,7 @@ Benefits
 
 * Needless to say, you will get multi-selection.
 * Only one class file, so make it easy to integrate with projects.
-* It uses reflection so you don't have to compile with higher android library. This is helpful, if you don't get it why, think deeper...:)
+* Thanks to ADT 21 its now drop in replacement for GridView. NOTE: you need to compile your project against API 11 or higher. If you want reflection based solution which does not depend upon the API level try tag 'v1.0.0'. Also needs ADT 21 and above.
 * If the apis are available it will shift to native ones. So compatibility mode is only when needed.
 * It does not require any compatibility jars also.
 
@@ -92,3 +94,15 @@ Caveats
 
 * As of now, the only way you can *setChoiceMode* is from the code. XML attribute is NOT supported.
 * Does NOT support *CHOICE_MODE_MULTIPLE_MODAL* for *setChoiceMode*. Which should not be a problem as such.
+* If you see lint errors in your code, you might need to use [@TargetAPi](http://developer.android.com/reference/android/annotation/TargetApi.html) to suppress it.
+  Example:
+  Lint Error - Call requires API level 11 (current min is 4): android.widget.GridView#getCheckedItemPositions
+  Try (As we are using in the sample app):
+```java
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+public View getView(int position, View convertView, ViewGroup parent) {
+    ...
+    ...
+}
+```
