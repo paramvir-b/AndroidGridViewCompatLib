@@ -1,7 +1,7 @@
 AndroidGridViewCompatLib
 ========================
 
-Multi-select grid view for android API level 7 and above. (NOTE: if you are running against API level 4 try using version 1.0.0 tag)
+Multi-select grid view for android API level 7 and above. (NOTE: if you are running against API level 4 use tag v1.0.0)
 
 Motivation
 ----------
@@ -98,6 +98,7 @@ Caveats
   Example:
   Lint Error - Call requires API level 11 (current min is 4): android.widget.GridView#getCheckedItemPositions
   Try (As we are using in the sample app):
+
 ```java
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
