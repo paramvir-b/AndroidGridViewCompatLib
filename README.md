@@ -101,7 +101,6 @@ Caveats
 
 ```java
 @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 public View getView(int position, View convertView, ViewGroup parent) {
     ...
     ...
