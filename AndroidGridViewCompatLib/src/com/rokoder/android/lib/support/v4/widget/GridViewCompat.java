@@ -69,7 +69,7 @@ public class GridViewCompat extends GridView {
     /**
      * Controls if/how the user may choose/check items in the list
      */
-    int mChoiceModeC = ListView.CHOICE_MODE_MULTIPLE;
+    int mChoiceModeC = ListView.CHOICE_MODE_NONE;
 
     /**
      * Variables for backward compatibility
