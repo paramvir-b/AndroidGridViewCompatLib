@@ -1,7 +1,7 @@
 AndroidGridViewCompatLib
 ========================
 
-Multi-select grid view for android API level 7 and above. (NOTE: if you are running against API level 4 use tag v1.0.0)
+Multi-select grid view for android API level 7 and above. (NOTE: if you are running against API level 4 use [tag v1.0.1](https://github.com/paramvir-b/AndroidGridViewCompatLib/tree/v1.0.1)
 
 Motivation
 ----------
