@@ -10,6 +10,15 @@ Working on one project I need to use the multi-selection *GridView*. I looked in
 
 So I sat down and wrote this class to support *GridView* with multi-selection for even older platforms.
 
+Where to get
+------------
+
+* Latest stable tag version [tag_v2.0.0](https://github.com/paramvir-b/AndroidGridViewCompatLib/tree/v2.0.0)
+* Download latest stable zip [v2.0.0](https://github.com/paramvir-b/AndroidGridViewCompatLib/archive/v2.0.0.zip)
+* Old version (Deprecated) [tag_v1.0.1](https://github.com/paramvir-b/AndroidGridViewCompatLib/tree/v1.0.1)
+
+And obviously you can clone, from above mentioned tags.
+
 Usage for project
 -----------------
 
